@@ -1,0 +1,19 @@
+.wrapper {
+  padding-left: 2rem;
+  padding-top: 2rem;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+
+    &_input {
+      width: fit-content;
+      margin-top: 1rem;
+    }
+
+    &_button {
+      width: fit-content;
+      margin-top: 1rem;
+    }
+  }
+}
