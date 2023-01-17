@@ -10,7 +10,7 @@ import router from "./routing";
 import errorMiddlewares from "./middlewares/error_middlewares";
 
 const app: Application = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 7000;
 
 app.use(express.json());
 app.use(
