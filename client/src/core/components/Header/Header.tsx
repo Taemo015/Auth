@@ -7,22 +7,18 @@ import styles from "./Header.module.scss";
 import Button, { ButtonType } from "src/components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "src/features/Auth/ducks";
-import { getIsError, getUser } from "src/features/Auth/ducks/selectors";
+import { getIsError } from "src/features/Auth/ducks/selectors";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const error = useSelector(getIsError);
-  const user = useSelector(getUser);
 
   useEffect(() => {
     if (error) {
       alert("Произошла ошибка");
     }
-    if (!error && user) {
-      navigate("/account");
-    }
-  }, [error, user]);
+  }, [error]);
 
   const handleLogout = useCallback(() => {
     try {

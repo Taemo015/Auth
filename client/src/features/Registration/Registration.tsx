@@ -18,15 +18,14 @@ import { actions } from "src/features/Auth/ducks";
 const Registration: React.FC = () => {
   const user = useSelector(getUser);
   const error = useSelector(getIsError);
-  const [emailValue, setEmailValue] = useState<string>("t.tomaev@yandex.ru");
-  const [nicknameValue, setNickNameValue] = useState<string>("tamo");
-  const [passwordValue, setPasswordValue] = useState<string>("123123123");
+  const [emailValue, setEmailValue] = useState<string>("");
+  const [nicknameValue, setNickNameValue] = useState<string>("");
+  const [passwordValue, setPasswordValue] = useState<string>("");
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (error) {
-      alert("Произошла ошибка");
+      console.log(error);
     }
   }, [error, user]);
 

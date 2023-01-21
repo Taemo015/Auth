@@ -4,13 +4,13 @@ import { FormUserData, Nullable } from "src/types/types";
 export interface AuthState {
   isLoading: boolean;
   user: Nullable<FormUserData>;
-  error: boolean;
+  error: Nullable<string>;
 }
 
 const initialState: AuthState = {
   isLoading: false,
   user: null,
-  error: false,
+  error: null,
 };
 
 const auth = createSlice({
@@ -27,8 +27,8 @@ const auth = createSlice({
       state.user = action.payload;
       state.isLoading = false;
     },
-    fetchError: (state: AuthState) => {
-      state.error = true;
+    fetchError: (state: AuthState, action: PayloadAction<string>) => {
+      state.error = action.payload;
       state.isLoading = false;
     },
     fetchLogout: (state: AuthState) => {
@@ -37,8 +37,8 @@ const auth = createSlice({
     fetchSuccessLogout: (state: AuthState) => {
       state.isLoading = false;
     },
-    fetchLogoutError: (state: AuthState) => {
-      state.error = true;
+    fetchLogoutError: (state: AuthState, action: PayloadAction<string>) => {
+      state.error = action.payload;
       state.isLoading = false;
     },
     resetState: (): AuthState => initialState,

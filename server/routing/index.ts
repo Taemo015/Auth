@@ -1,11 +1,10 @@
 import { Router } from "express";
-import UserController from "../controllers/User/userController";
+import AuthRouter from "../components/Auth/AuthRoutes";
+import UserRoutes from "../components/User/UserRoutes";
+import { auth, users } from "./routes";
 
 const router: Router = Router();
-router.post("/registration", UserController.registration.bind(UserController));
-router.post("/login", UserController.login.bind(UserController));
-
-router.get("/logout", UserController.logout.bind(UserController));
-router.get("/refresh", UserController.refresh.bind(UserController));
+router.use(auth, AuthRouter);
+router.use(users, UserRoutes);
 
 export default router;

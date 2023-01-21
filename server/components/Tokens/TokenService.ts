@@ -1,11 +1,10 @@
 import jwt from "jsonwebtoken";
-import { UserDataWithoutPassword } from "../../types/types";
 
 import { TokensSecretKeys } from "./constants";
-import { ITokenService } from "./types";
+import { TokensData } from "./types";
 
-class TokenService implements ITokenService {
-  generateTokens(payload: UserDataWithoutPassword) {
+class TokenService {
+  generateTokens(payload: TokensData) {
     const accessToken = jwt.sign(payload, TokensSecretKeys.ACCESS_TOKEN_KEY, {
       expiresIn: "24h",
     });
@@ -18,25 +17,25 @@ class TokenService implements ITokenService {
     };
   }
 
-  validAccessToken(accessToken: string): UserDataWithoutPassword | null {
+  validAccessToken(accessToken: string) {
     try {
       const dataUser = jwt.verify(
         accessToken,
         TokensSecretKeys.ACCESS_TOKEN_KEY
       );
-      return dataUser as UserDataWithoutPassword;
+      return dataUser;
     } catch (e) {
       return null;
     }
   }
 
-  validRefreshToken(refreshToken: string): UserDataWithoutPassword | null {
+  validRefreshToken(refreshToken: string) {
     try {
       const dataUser = jwt.verify(
         refreshToken,
         TokensSecretKeys.REFRESH_TOKEN_KEY
       );
-      return dataUser as UserDataWithoutPassword;
+      return dataUser;
     } catch (e) {
       return null;
     }

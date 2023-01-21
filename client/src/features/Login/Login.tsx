@@ -1,32 +1,15 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useState,
-  useEffect,
-} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 import Button, { ButtonType } from "src/components/Button";
 import Input from "src/components/Input";
 import Form from "src/core/layout/Form";
 import { actions } from "src/features/Auth/ducks";
-import { getIsError, getUser } from "src/features/Auth/ducks/selectors";
 import styles from "./Login.module.scss";
 
 const Login: React.FC = () => {
-  const user = useSelector(getUser);
-  const error = useSelector(getIsError);
-  const [emailValue, setEmailValue] = useState<string>("t.tomaev@yandex.ru");
-  const [passwordValue, setPasswordValue] = useState<string>("123123123");
-  const navigate = useNavigate();
+  const [emailValue, setEmailValue] = useState<string>("");
+  const [passwordValue, setPasswordValue] = useState<string>("");
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (error) {
-      alert("Произошла ошибка");
-    }
-  }, [error, user]);
 
   const handleSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {

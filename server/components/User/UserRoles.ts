@@ -1,9 +1,13 @@
 import { Model, DataTypes } from "sequelize";
-import db from "../db";
+import db from "../../db";
 
-class RolesModel extends Model {}
+class UserRoles extends Model {
+  id: number;
+  user_id: number;
+  roles: Array<string>;
+}
 
-RolesModel.init(
+UserRoles.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -20,7 +24,8 @@ RolesModel.init(
   {
     sequelize: db,
     tableName: "roles",
+    timestamps: false,
   }
 );
 
-export default RolesModel;
+export default UserRoles;

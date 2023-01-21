@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import axios, {
   AxiosError,
   AxiosInstance,
@@ -10,7 +11,7 @@ import AuthService from "./AuthService";
 
 export default class AxiosService {
   private static _axiosInstance: AxiosInstance = axios.create({
-    baseURL: "http://localhost:5000/api/",
+    baseURL: "http://localhost:7000/api/",
     headers: {
       "Content-Type": "application/json",
     },
@@ -49,7 +50,7 @@ AxiosService.instance.interceptors.response.use(
       AxiosService.instance(originalRequest);
     } else {
       AuthService.removeToken();
-      window.location.href = "/login";
+      return Promise.reject(error);
     }
   }
 );

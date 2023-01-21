@@ -3,6 +3,7 @@ import { ResponseUserData } from "src/types/types";
 import AuthService from "src/utils/AuthService";
 import { AuthRepository } from "src/utils/AuthRepository";
 import { actions } from "./index";
+import { AxiosError } from "axios";
 
 export function* fetchRegistration(
   action: ReturnType<typeof actions.fetchRegistration>
@@ -19,26 +20,27 @@ export function* fetchRegistration(
     AuthService.setToken({ ...tokens });
     yield put(actions.fetchSuccess({ ...user }));
   } catch (e) {
-    yield put(actions.fetchError());
+    if (e instanceof AxiosError) {
+      const { response } = e;
+      yield put(actions.fetchError(response?.data.message));
+    }
   }
 }
 
-export function* fetchLogin(
-  action: ReturnType<typeof actions.fetchLogin>
-) {
+export function* fetchLogin(action: ReturnType<typeof actions.fetchLogin>) {
   try {
     const formData = action.payload;
-    const data: ResponseUserData = yield call(
-      AuthRepository.login,
-      formData
-    );
+    const data: ResponseUserData = yield call(AuthRepository.login, formData);
 
     const { user, tokens } = data;
 
     AuthService.setToken({ ...tokens });
     yield put(actions.fetchSuccess({ ...user }));
   } catch (e) {
-    yield put(actions.fetchError());
+    if (e instanceof AxiosError) {
+      const { response } = e;
+      yield put(actions.fetchError(response?.data.message));
+    }
   }
 }
 
@@ -49,7 +51,10 @@ export function* fetchLogout() {
 
     yield put(actions.fetchSuccessLogout());
   } catch (e) {
-    yield put(actions.fetchLogoutError());
+    if (e instanceof AxiosError) {
+      const { response } = e;
+      yield put(actions.fetchError(response?.data.message));
+    }
   }
 }
 

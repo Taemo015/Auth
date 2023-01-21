@@ -1,12 +1,10 @@
 import { Model, DataTypes } from "sequelize";
-import UserRoles from "./user_roles";
-import db from "../db";
+import db from "../../db";
+import UserRoles from "./UserRoles";
 
 class UserModel extends Model {
   id: number;
-  email: string;
   nickname: string;
-  password: string;
 }
 
 UserModel.init(
@@ -17,9 +15,8 @@ UserModel.init(
       autoIncrement: true,
       allowNull: false,
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    auth_id: {
+      type: DataTypes.INTEGER,
       unique: true,
     },
     nickname: {
@@ -27,7 +24,7 @@ UserModel.init(
       allowNull: false,
       unique: true,
     },
-    password: {
+    refreshToken: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -35,6 +32,7 @@ UserModel.init(
   {
     sequelize: db,
     tableName: "users",
+    timestamps: false,
   }
 );
 

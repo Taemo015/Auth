@@ -2,9 +2,9 @@ import { FormUserDataLogin, ResponseUserData } from "src/types/types";
 import AxiosService from "src/utils/AxiosService";
 
 export class AuthRepository {
-  private static _endpointRegistration = "/registration";
-  private static _endpointLogin = "/login";
-  private static _endpointLogout = "/logout";
+  private static _endpointRegistration = "auth/registration";
+  private static _endpointLogin = "auth/login";
+  private static _endpointLogout = "auth/logout";
 
   static async registration(params: FormData): Promise<ResponseUserData> {
     const { data } = await AxiosService.instance.post(
