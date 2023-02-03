@@ -53,14 +53,17 @@ const getCssLoader = (loader) => {
   return base;
 };
 
-const babelOptions = (extract) => {
+const babelOptions = (arguments) => {
   const options = {
     presets: ["@babel/preset-env"],
     plugins: ["@babel/plugin-proposal-class-properties"],
   };
 
-  if (extract) {
-    options.presets.push(extract);
+  if (arguments) {
+    return {
+      ...options,
+      presets: options.presets.concat([...arguments]),
+    };
   }
   return options;
 };
@@ -73,9 +76,9 @@ const getJsLoaders = () => {
     },
   ];
 
-  if (isDev) {
-    loaders.push("eslint-loader");
-  }
+  // if (isDev) {
+  //   loaders.push("eslint-loader");
+  // }
 
   return loaders;
 };
@@ -84,14 +87,14 @@ module.exports = {
   context: path.resolve(__dirname, "src"),
   mode: "development",
   entry: {
-    main: ["./client/index.ts"],
+    main: ["./client/client.tsx"],
   },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: getFileName("js"),
   },
   resolve: {
-    extensions: [".ts", ".js", ".json"],
+    extensions: ["*", ".js", ".jsx", ".tsx", ".ts"],
     alias: {
       client: path.resolve(__dirname, "src/client"),
       server: path.resolve(__dirname, "src/server"),
@@ -122,27 +125,21 @@ module.exports = {
         use: ["file-loader"],
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: getJsLoaders(),
       },
       {
-        test: /\.ts$/,
+        test: /\.(ts|tsx)$/,
+        enforce: "pre",
         exclude: /node_modules/,
         use: [
           {
             loader: "babel-loader",
-            options: babelOptions("@babel/preset-typescript"),
-          },
-        ],
-      },
-      {
-        test: /\.tsx$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: babelOptions("@babel/preset-react"),
+            options: babelOptions([
+              "@babel/preset-react",
+              "@babel/preset-typescript",
+            ]),
           },
         ],
       },
