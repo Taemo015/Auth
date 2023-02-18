@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import Input from "shared/components/Input";
 import Form from "shared/core/layout/Form";
 import Button, { ButtonType } from "shared/components/Button";
-import styles from "./Registration.module.scss";
+import styles from "./Registration.module.css";
 import { actions } from "shared/features/Auth/ducks";
 
 const Registration: React.FC = () => {

@@ -4,7 +4,7 @@ import Button, { ButtonType } from "shared/components/Button";
 import Input from "shared/components/Input";
 import Form from "shared/core/layout/Form";
 import { actions } from "shared/features/Auth/ducks";
-import styles from "./Login.module.scss";
+import styles from "./Login.module.css";
 
 const Login: React.FC = () => {
   const [emailValue, setEmailValue] = useState<string>("t.tomaev@yandex.ru");

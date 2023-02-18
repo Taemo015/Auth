@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route as RouteComponent } from "react-router-dom";
 import routing from "./index";
 

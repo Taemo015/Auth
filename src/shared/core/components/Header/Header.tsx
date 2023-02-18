@@ -7,7 +7,7 @@ import AuthService from "shared/utils/AuthService";
 import Button, { ButtonType } from "shared/components/Button";
 import { actions } from "shared/features/Auth/ducks";
 import { getIsError, getUser } from "shared/features/Auth/ducks/selectors";
-import styles from "./Header.module.scss";
+import styles from "./Header.module.css";
 
 const Header: React.FC = () => {
   const user = useSelector(getUser);

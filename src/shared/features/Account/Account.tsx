@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./Account.module.scss";
+import styles from "./Account.module.css";
 
 const Account: React.FC = () => {
   return (
